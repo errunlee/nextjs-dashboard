@@ -1,6 +1,11 @@
 import React from "react";
 
-const page = ({ params }: { params: { id: string } }) => {
+type PageProps = {
+  params: {
+    id: string;
+  };
+};
+const page = ({ params }: PageProps) => {
   const id = params.id;
   return <div>id is {id}</div>;
 };
