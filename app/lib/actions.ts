@@ -48,21 +48,30 @@ export async function updateInvoice(id: string, formData: FormData) {
 
   const amountInCents = amount * 100;
 
-  await client.sql`
+  try {
+    await client.sql`
     UPDATE invoices
     SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
     WHERE id = ${id}
-  `;
+    `;
+  } catch (error) {
+    console.log("Error encountered");
+  }
 
   revalidatePath("/dashboard/invoices");
   redirect("/dashboard/invoices");
 }
 
 export async function deleteInvoice(id: string) {
-  await client.sql`
+  throw new Error("Not implemented");
+  try {
+    await client.sql`
     DELETE FROM invoices
-    WHERE id = ${id}
-  `;
+    WHERE id = ${id + 1}
+    `;
+  } catch (error) {
+    console.log("failed to delete invoice", error);
+  }
 
   revalidatePath("/dashboard/invoices");
 }
